@@ -88,12 +88,12 @@ export class OrderPage extends Component {
   quantityHandler = (action, index) => {
     const newItems = [...this.state.cartItems]; // clone the array
 
-    let currentQty = newItems[index]["qty"];
+    let currentQty = newItems[index]["amount"];
 
     if (action == "more") {
-      newItems[index]["qty"] = currentQty + 1;
+      newItems[index]["amount"] = currentQty + 1;
     } else if (action == "less") {
-      newItems[index]["qty"] = currentQty > 1 ? currentQty - 1 : 1;
+      newItems[index]["amount"] = currentQty > 1 ? currentQty - 1 : 1;
     }
 
     this.setState({ cartItems: newItems }); // set new state
@@ -104,7 +104,7 @@ export class OrderPage extends Component {
     if (cartItems) {
       return cartItems.reduce(
         (sum, item) =>
-          sum + (item.checked == 1 ? item.Amount * item.Price : 0),
+          sum + (item.checked == 1 ? item.amount * item.Price : 0),
         0
       );
     }
@@ -202,7 +202,7 @@ export class OrderPage extends Component {
                         numberOfLines={1}
                         style={{ color: "#333333", marginBottom: 10 }}
                       >
-                        ${item.Amount * item.Price}
+                        {item.amount * item.Price}
                       </Text>
                       <View style={{ flexDirection: "row" }}>
                         <TouchableOpacity
@@ -226,7 +226,7 @@ export class OrderPage extends Component {
                             fontSize: 13,
                           }}
                         >
-                          {item.Amount}
+                          {item.amount}
                         </Text>
                         <TouchableOpacity
                           onPress={() => this.quantityHandler("more", i)}
@@ -242,7 +242,7 @@ export class OrderPage extends Component {
                       style={[styles.centerElement, { width: 32, height: 32 }]}
                       onPress={() => this.deleteHandler(i)}
                     >
-                      <Ionicons name="md-trash" size={25} color="#ee4d2d" />
+                      <Ionicons name="md-trash" size={25} color="darkred" />
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -329,7 +329,8 @@ export class OrderPage extends Component {
                   }}
                 >
                   <Text style={{ color: "#8f8f8f" }}>SubTotal: </Text>
-                  <Text>${this.subtotalPrice().toFixed(2)}</Text>
+                  <Text>
+                    {this.subtotalPrice().toFixed(2)}</Text>
                 </View>
               </View>
             </View>
@@ -348,7 +349,7 @@ export class OrderPage extends Component {
                   {
                     backgroundColor: "#0faf9a",
                     width: 100,
-                    height: 25,
+                    height: 30,
                     borderRadius: 5,
                   },
                 ]}

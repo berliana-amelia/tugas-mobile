@@ -27,7 +27,7 @@ const HomeStack = (props) => {
     initialRouteName={"Menu"}
     screenOptions = {({route}) => ({
         tabBarActiveTintColor:'white',
-        tabBarInactiveTintColor:'darkred',
+        tabBarInactiveTintColor:'black',
         tabBarLabelStyle:{paddingBottom:10, fontSize:13, fontWeight:'reguler'},
       tabBarIcon: ({focused, color, size}) => {
         let iconName;
@@ -44,7 +44,7 @@ const HomeStack = (props) => {
       tabBarStyle:{
         height:70, 
         padding:10, 
-        backgroundColor:'red'
+        backgroundColor:'darkred'
       }, 
       })}
     >
