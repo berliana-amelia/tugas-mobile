@@ -20,8 +20,6 @@ export default class SavedLoc extends Component {
   }
   //fungsi untuk mendapatkan data dari firestore
   getData = async () => {
-    var Email = this.props.route.params.email;
-    console.log(Email)
     //membuat variable local locations berbentuk array 
     const locations = [];
     const querySnapshot = await getDocs(collection(db, "SavedLocation"));

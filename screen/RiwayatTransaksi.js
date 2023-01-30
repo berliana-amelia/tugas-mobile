@@ -1,13 +1,14 @@
 import { Text, View } from 'react-native'
 import React, { Component } from 'react'
 
-export default class Test extends Component {
-    
+export class RiwayatTransaksi extends Component {
   render() {
     return (
       <View>
-        <Text>Test</Text>
+        <Text>RiwayatTransaksi</Text>
       </View>
     )
   }
 }
+
+export default RiwayatTransaksi

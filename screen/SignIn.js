@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import React, { Component } from "react";
 import {
   Judul,
@@ -17,6 +17,7 @@ export class SignIn extends Component {
     this.state = {
       email: "",
       password: "",
+      nama : "",
       check_textInputChange: false,
       secureTextEntry: true,
     };
@@ -25,25 +26,40 @@ export class SignIn extends Component {
     //membuat variable local dan assign ke state
     var Email = this.state.email;
     var Password = this.state.password;
-    var Nama;
-    const {navigation} = this.props;
+    var Nama = this.state.nama;
+    const userInfo = [];
+    const { navigation } = this.props;
     //mengambil dokumen dari firestore collection "user" dengan nama dokumen adalah isi dari variable local Email
     getDoc(doc(db, "user", Email))
       .then((docData) => {
         //jika data ditemukan
         if (docData.exists()) {
-          //jika email dan password pengguna cocol
+          //jika email dan password pengguna cocok
+          Email = docData.data().email
           Nama = docData.data().nama
+          userInfo.push({
+            key: 1,
+            Email,
+            Nama
+          });
+          this.setState({
+            userInfo,
+          });
+          console.log(userInfo)
           if (
             docData.data().email == Email &&
             docData.data().password == Password
           ) {
             //maka akan muncul alert Login Berhasil dan diarahkan ke Screen Maps
-            alert("Berhasil Login");
-            
-            navigation.navigate("Menu", {
-              email : Email
-            })
+            Alert.alert(
+              "Selamat!",
+              "Login Berhasil",
+              [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+              { cancelable: false }
+            );
+            navigation.navigate("HomeStack", {
+              data: userInfo
+            });
           } else {
             //jika email dan password tidak match maka akan muncul alert
             alert("E-mail / Password Anda Salah!");
@@ -51,7 +67,7 @@ export class SignIn extends Component {
         } else {
           //jika dokumen tidak ada
           alert("E-mail / Password Anda Salah!");
-        }5
+        }
       })
       .catch((error) => {
         console.log(error);

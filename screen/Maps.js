@@ -10,14 +10,20 @@ import { doc, setDoc } from "firebase/firestore";
 export default class Maps extends Component {
   //state awal class
   state = {
+    location: null, 
     mapRegion: null,
     hasLocationPermissions: false,
     locationResult: null,
     hasilLongitude: 0,
     hasilLatitude: 0,
     visible: false,
+    geocode:null,
   };
-  //fungsi untuk save location 
+  //fungsi untuk save location
+  getGeocodeAsync= async (location) => {
+    let geocode = await Location.reverseGeocodeAsync(location.coords)
+    console.log(geocode);
+  } 
   SaveLoc = () => {
     //local variable 
     let today = new Date().toUTCString();
@@ -61,9 +67,17 @@ export default class Maps extends Component {
     }
     //mendapatkan lokasi terkisi
     let location = await Location.getCurrentPositionAsync({});
+
+    
+    let Geocode = await Location.reverseGeocodeAsync(location.coords)
+    console.log(Geocode);
+    this.setState({
+      geocode : Geocode}
+    )
     //mendapatkan nilai dari lokasi dan dimasukkan kedalam state locationResult
     this.setState({ locationResult: JSON.stringify(location) });
     //memaukkan nilai latitude dan longitude kedalam map region
+    // const {LATI, LONGI} = location.coords;
     this.setState({
       mapRegion: {
         latitude: location.coords.latitude,
@@ -77,9 +91,10 @@ export default class Maps extends Component {
     });
   };
 
+
   render() {
     const { visible } = this.state;
-    var Email = this.props.route.params.email;
+    const {location,geocode } = this.state
     return (
       <View style={{ flex: 1 }}>
         <StatusBar backgroundColor={"black"}></StatusBar>
@@ -113,7 +128,7 @@ export default class Maps extends Component {
             lati={this.state.hasilLatitude}
             onPress={() => this.SaveLoc()}
             onPress2={() => this.props.navigation.navigate("Saved Location",{
-              email: Email
+              // email: Email
             })}
           />
         </View>
