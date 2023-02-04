@@ -202,7 +202,7 @@ export class OrderPage extends Component {
                         numberOfLines={1}
                         style={{ color: "#333333", marginBottom: 10 }}
                       >
-                        {item.amount * item.Price}
+                        Rp {item.amount * item.Price}
                       </Text>
                       <View style={{ flexDirection: "row" }}>
                         <TouchableOpacity
@@ -330,7 +330,7 @@ export class OrderPage extends Component {
                 >
                   <Text style={{ color: "#8f8f8f" }}>SubTotal: </Text>
                   <Text>
-                    {this.subtotalPrice().toFixed(2)}</Text>
+                    Rp. {this.subtotalPrice()}</Text>
                 </View>
               </View>
             </View>

@@ -2,7 +2,7 @@ import { View, StyleSheet, FlatList, Image, Pressable, Alert } from "react-nativ
 import React, { Component, useState } from "react";
 import { db } from "../handler/config";
 import { collection, getDocs } from "firebase/firestore";
-import { Card, Text, Button } from "react-native-paper";
+import { Card, Text, Button , Searchbar } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class Menu extends Component {
@@ -12,12 +12,28 @@ export default class Menu extends Component {
     //membuat state variable
     this.state = {
       cart: [],
+      error: null,
+      searchValue: '',
+      Data : []
     };
   }
   //function ketika class berhasil dibentuk
   componentDidMount() {
     this.getData();
   }
+  // membuat function component search function 
+  searchFunction = (text) => {
+    //membuat constanta untuk menyimpan data yang dicari
+    const updatedData = this.state.Data.filter((item) => {
+      // mengubah data DATA menjadi Uppercase semua
+      const item_data = `${item.nama.toUpperCase()}`;
+      // mengubah data yang diinputkan text bar menjadi huruf besar semua
+      const text_data = text.toUpperCase();
+      return item_data.indexOf(text_data) > -1;
+    });
+    //mengupdate state data dengan updatedData dan searchValue yang ditampilkan tetap text
+    this.setState({ Data: updatedData, searchValue: text });
+  };
   storeData = async (value) => {
     try {
       const jsonValue = JSON.stringify(value)
@@ -71,7 +87,7 @@ export default class Menu extends Component {
         url,
       });
     });
-    //memasukkan array locations lokal ke array locations yang ada distate
+    //memasukkan array locations lokal ke array locations yang ada di state
     this.setState({
       Data,
     });
@@ -79,6 +95,11 @@ export default class Menu extends Component {
   render() {
     return (
       <View style={{ flex: 1, marginTop: 5 }}>
+        <Searchbar
+          placeholder="Search"
+          onChangeText={(text) => this.searchFunction(text)}
+          value={this.state.searchValue}
+          />
         {/*  membuat list dari data state array location */}
         <FlatList
           style={{ height: "100%" }}

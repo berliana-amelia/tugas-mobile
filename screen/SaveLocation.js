@@ -1,13 +1,14 @@
 import { Text, View } from 'react-native'
 import React, { Component } from 'react'
 
-export default class Test extends Component {
-    
+export class SaveLocation extends Component {
   render() {
     return (
       <View>
-        <Text>Test</Text>
+        <Text>SaveLocation</Text>
       </View>
     )
   }
 }
+
+export default SaveLocation

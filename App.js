@@ -15,6 +15,7 @@ import {
   Profile,
   Menus
 } from "./screen";
+import rowww from "./screen/rowww";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
