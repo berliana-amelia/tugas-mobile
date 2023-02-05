@@ -1,8 +1,15 @@
-import { View, StyleSheet, FlatList, Image, Pressable, Alert } from "react-native";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Image,
+  Pressable,
+  Alert,
+} from "react-native";
 import React, { Component, useState } from "react";
 import { db } from "../handler/config";
 import { collection, getDocs } from "firebase/firestore";
-import { Card, Text, Button , Searchbar } from "react-native-paper";
+import { Card, Text, Button, Searchbar, Appbar, Tooltip } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class Menu extends Component {
@@ -13,35 +20,41 @@ export default class Menu extends Component {
     this.state = {
       cart: [],
       error: null,
-      searchValue: '',
-      Data : []
+      searchValue: "",
+      Data: [],
     };
   }
   //function ketika class berhasil dibentuk
   componentDidMount() {
     this.getData();
   }
-  // membuat function component search function 
+  // membuat function component search function
   searchFunction = (text) => {
-    //membuat constanta untuk menyimpan data yang dicari
-    const updatedData = this.state.Data.filter((item) => {
-      // mengubah data DATA menjadi Uppercase semua
-      const item_data = `${item.nama.toUpperCase()}`;
-      // mengubah data yang diinputkan text bar menjadi huruf besar semua
-      const text_data = text.toUpperCase();
-      return item_data.indexOf(text_data) > -1;
-    });
-    //mengupdate state data dengan updatedData dan searchValue yang ditampilkan tetap text
-    this.setState({ Data: updatedData, searchValue: text });
+    if (text) {
+      //membuat constanta untuk menyimpan data yang dicari
+      const updatedData = this.state.Data.filter((item) => {
+        // mengubah data DATA menjadi Uppercase semua
+        const item_data = `${item.nama.toUpperCase()}`;
+        // mengubah data yang diinputkan text bar menjadi huruf besar semua
+        const text_data = text.toUpperCase();
+        return item_data.indexOf(text_data) > -1;
+      });
+      //mengupdate state data dengan updatedData dan searchValue yang ditampilkan tetap text
+      this.setState({ Data: updatedData, searchValue: text });
+    } else {
+      this.getData();
+      this.setState({ searchValue: text });
+    }
   };
+  //membuat fungsi untuk menyimpan data ke dalam async storage
   storeData = async (value) => {
     try {
-      const jsonValue = JSON.stringify(value)
-      await AsyncStorage.setItem('storage', jsonValue)
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("storage", jsonValue);
     } catch (e) {
       // saving error
     }
-  }
+  };
   //fungsi untuk menambahkan item ke keranjang
   AddToCart = async (DataItem) => {
     const IteminCart = this.state.cart;
@@ -49,22 +62,22 @@ export default class Menu extends Component {
     const Nama = DataItem.nama;
     const Price = DataItem.price;
     const Uri = DataItem.url;
-    const Test = IteminCart.filter(items =>items.keys == keys)
-    console.log("Filtered",Test);
-    if(Test.length == 0){
+    const Test = IteminCart.filter((items) => items.keys == keys);
+    console.log("Filtered", Test);
+    if (Test.length == 0) {
       IteminCart.push({
         keys,
         Nama,
         Price,
         Uri,
-        amount : 1,
-        checked: 1
+        amount: 1,
+        checked: 1,
       });
       alert("Item ditambahkan!");
       this.storeData(IteminCart);
-    }else{
-      const ElementID = IteminCart.findIndex(element => element.keys ==keys )
-      console.log("Index",ElementID)
+    } else {
+      const ElementID = IteminCart.findIndex((element) => element.keys == keys);
+      console.log("Index", ElementID);
       this.storeData(IteminCart);
     }
     console.log(IteminCart);
@@ -94,17 +107,21 @@ export default class Menu extends Component {
   };
   render() {
     return (
-      <View style={{ flex: 1, marginTop: 5 }}>
+      <View style={{ flex: 1, backgroundColor: 'white'}}>
+        <Appbar.Header>
+          <Appbar.Content title="Menu" />
+          <Appbar.Action icon="cart" color="darkred" onPress={() => this.props.navigation.navigate("Keranjang")} />
+        </Appbar.Header>
         <Searchbar
           placeholder="Search"
           onChangeText={(text) => this.searchFunction(text)}
           value={this.state.searchValue}
-          />
+        />
         {/*  membuat list dari data state array location */}
         <FlatList
           style={{ height: "100%" }}
           data={this.state.Data}
-          numColumn={2}
+          // numColumn={2}
           renderItem={({ item }) => (
             <Card style={{ marginBottom: 10 }}>
               <Card.Cover
@@ -123,8 +140,7 @@ export default class Menu extends Component {
                   mode="outlined"
                   onPress={() =>
                     this.props.navigation.navigate("Detail Menu", {
-                      data: item,
-                      dataCart: this.state.cart
+                      data: item
                     })
                   }
                 >

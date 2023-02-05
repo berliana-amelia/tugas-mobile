@@ -10,6 +10,7 @@ import {
 } from "../comp";
 import { db } from "../handler/config";
 import { doc, getDoc } from "firebase/firestore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export class SignIn extends Component {
   constructor(props) {
@@ -21,6 +22,16 @@ export class SignIn extends Component {
       check_textInputChange: false,
       secureTextEntry: true,
     };
+  }
+  storeUser = async (value) => {
+    try {
+      console.log("StoreData Value :", value);
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("user", jsonValue);
+    } catch (e) {
+      // saving error
+      console.log(e);
+    }
   }
   SignInFunc = () => {
     //membuat variable local dan assign ke state
@@ -57,9 +68,8 @@ export class SignIn extends Component {
               [{ text: "OK", onPress: () => console.log("OK Pressed") }],
               { cancelable: false }
             );
-            navigation.navigate("HomeStack", {
-              data: userInfo
-            });
+            this.storeUser(userInfo);
+            navigation.navigate("HomeStack");
           } else {
             //jika email dan password tidak match maka akan muncul alert
             alert("E-mail / Password Anda Salah!");

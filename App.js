@@ -13,15 +13,14 @@ import {
   DetailMenu,
   OrderPage,
   Profile,
-  Menus
+  CheckOut,
+  SaveLocation
 } from "./screen";
-import rowww from "./screen/rowww";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const HomeStack = (props) => {
-  const data = props.route.params.data;
   return (
     //membuat bottom navigator home dan routing home 
     <Tab.Navigator
@@ -35,8 +34,6 @@ const HomeStack = (props) => {
         let rn = route.name;
         if(rn == "Menu"){
           iconName = focused ?  'grid' : 'grid-outline'
-        }else if (rn == "Cart"){
-          iconName = focused ?  'cart' : 'cart-outline'
         }else if (rn == "Profile"){
           iconName = focused ?  'person' : 'person-outline'
         }
@@ -49,9 +46,8 @@ const HomeStack = (props) => {
       }, 
       })}
     >
-      <Tab.Screen name="Menu" component={Menu} />
-      <Tab.Screen name="Cart" component={OrderPage} options={{ headerShown: false }}/>
-      <Tab.Screen name="Profile" component={Profile} initialParams={{data}} />
+      <Tab.Screen name="Menu" component={Menu} options={{ headerShown: false }} />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
     
   );
@@ -68,6 +64,9 @@ const App = () => {
         <Stack.Screen name="Saved Location" component={SavedLoc} />
         <Stack.Screen name="RiwayatTransaksi" component={RiwayatTransaksi} />
         <Stack.Screen name="Detail Menu" component={DetailMenu} />
+        <Stack.Screen name="Keranjang" component={OrderPage} options={{ headerShown: false }}/>
+        <Stack.Screen name="Order Detail" component={CheckOut} />
+        <Stack.Screen name="Simpan Lokasi" component={SaveLocation} />
       </Stack.Navigator>
     </NavigationContainer>
   );

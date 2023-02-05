@@ -6,9 +6,8 @@ import {
   ScrollView,
   Image,
   ActivityIndicator,
-  TextInput,
   Alert,
-} from 'react-native';
+} from "react-native";
 import React, { Component } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
@@ -16,7 +15,7 @@ import {
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import Constants from 'expo-constants';
+import { Appbar, Button } from "react-native-paper";
 
 export class OrderPage extends Component {
   constructor(props) {
@@ -30,6 +29,16 @@ export class OrderPage extends Component {
     this.getData();
   }
 
+  //membuat fungsi untuk menyimpan data keranjang ke dalam async storage
+  storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("storage", jsonValue);
+    } catch (e) {
+      // saving error
+    }
+  };
+  //fungsi untuk memuat data dari async storage
   getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("storage");
@@ -46,6 +55,7 @@ export class OrderPage extends Component {
     const newItems = [...this.state.cartItems]; // clone the array
     newItems[index]["checked"] = value == 1 ? 0 : 1; // set the new value
     this.setState({ cartItems: newItems }); // set new state
+    this.storeData(newItems);
   };
 
   selectHandlerAll = (value) => {
@@ -57,6 +67,7 @@ export class OrderPage extends Component {
       cartItems: newItems,
       selectAll: value == true ? false : true,
     }); // set new state
+    this.storeData(newItems);
   };
 
   deleteHandler = (index) => {
@@ -78,6 +89,7 @@ export class OrderPage extends Component {
               1
             ); /* Remove item from the cloned cart state */
             this.setState(updatedCart); /* Update the state */
+            this.storeData(updatedCart);
           },
         },
       ],
@@ -97,39 +109,43 @@ export class OrderPage extends Component {
     }
 
     this.setState({ cartItems: newItems }); // set new state
+    this.storeData(newItems);
   };
+
+  checkoutHandler = () => {
+      subtotal = this.subtotalPrice();
+      this.storeSubTotal(subtotal);
+  }
 
   subtotalPrice = () => {
     const { cartItems } = this.state;
     if (cartItems) {
       return cartItems.reduce(
-        (sum, item) =>
-          sum + (item.checked == 1 ? item.amount * item.Price : 0),
+        (sum, item) => sum + (item.checked == 1 ? item.amount * item.Price : 0),
         0
       );
     }
     return 0;
   };
+  //membuat fungsi untuk menyimpan data ke dalam async storage
+  storeSubTotal = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("subtotal", jsonValue);
+    } catch (e) {
+      // saving error
+    }
+  };
   render() {
-    this.getData();
     const { cartItems, cartItemsIsLoading, selectAll } = this.state;
     return (
-      <View style={{ flex: 1, backgroundColor: "#f6f6f6" , marginTop:Constants.statusBarHeight}}>
-        <View
-          style={{
-            flexDirection: "row",
-            backgroundColor: "#fff",
-            marginBottom: 10,
-          }}
-        >
-          <View style={[styles.centerElement, { width: 50, height: 50 }]}>
-            <Ionicons name="ios-cart" size={25} color="#000" />
-          </View>
-          <View style={[styles.centerElement, { height: 50 }]}>
-            <Text style={{ fontSize: 18, color: "#000" }}>Shopping Cart</Text>
-          </View>
-        </View>
-
+      <View style={{ flex: 1, backgroundColor: "#f6f6f6" }}>
+        <Appbar.Header>
+          <Appbar.BackAction
+            onPress={() => this.props.navigation.navigate("HomeStack")}
+          />
+          <Appbar.Content title="Keranjang" />
+        </Appbar.Header>
         {cartItemsIsLoading ? (
           <View style={[styles.centerElement, { height: 300 }]}>
             <ActivityIndicator size="large" color="#ef5739" />
@@ -173,7 +189,9 @@ export class OrderPage extends Component {
                   >
                     <TouchableOpacity
                       onPress={() => {
-                        /*this.props.navigation.navigate('ProductDetails', {productDetails: item})*/
+                        this.props.navigation.navigate("Detail Menu", {
+                          data: item,
+                        });
                       }}
                       style={{ paddingRight: 10 }}
                     >
@@ -194,9 +212,6 @@ export class OrderPage extends Component {
                     >
                       <Text numberOfLines={1} style={{ fontSize: 15 }}>
                         {item.Nama}
-                      </Text>
-                      <Text numberOfLines={1} style={{ color: "#8f8f8f" }}>
-                        {item.color ? "Variation: " + item.color : ""}
                       </Text>
                       <Text
                         numberOfLines={1}
@@ -254,47 +269,19 @@ export class OrderPage extends Component {
           <View
             style={{
               backgroundColor: "#fff",
-              borderTopWidth: 2,
+              // borderTopWidth: 2,
               borderColor: "#f6f6f6",
               paddingVertical: 5,
+              height: "10%",
             }}
           >
-            <View style={{ flexDirection: "row" }}>
-              <View style={[styles.centerElement, { width: 60 }]}>
-                <View style={[styles.centerElement, { width: 32, height: 32 }]}>
-                  <MaterialCommunityIcons
-                    name="ticket"
-                    size={25}
-                    color="#f0ac12"
-                  />
-                </View>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  flexGrow: 1,
-                  flexShrink: 1,
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <Text>Voucher</Text>
-                <View style={{ paddingRight: 20 }}>
-                  <TextInput
-                    style={{
-                      paddingHorizontal: 10,
-                      backgroundColor: "#f0f0f0",
-                      height: 25,
-                      borderRadius: 4,
-                    }}
-                    placeholder="Enter voucher code"
-                    value={""}
-                    onChangeText={(searchKeyword) => {}}
-                  />
-                </View>
-              </View>
-            </View>
-            <View style={{ flexDirection: "row" }}>
+            <View
+              style={{
+                flexDirection: "row",
+                marginBottom: 5,
+                
+              }}
+            >
               <View style={[styles.centerElement, { width: 60 }]}>
                 <TouchableOpacity
                   style={[styles.centerElement, { width: 32, height: 32 }]}
@@ -320,7 +307,7 @@ export class OrderPage extends Component {
                   alignItems: "center",
                 }}
               >
-                <Text>Select All</Text>
+                <Text style={{ fontSize: 18 }}>Select All</Text>
                 <View
                   style={{
                     flexDirection: "row",
@@ -328,35 +315,42 @@ export class OrderPage extends Component {
                     alignItems: "center",
                   }}
                 >
-                  <Text style={{ color: "#8f8f8f" }}>SubTotal: </Text>
-                  <Text>
-                    Rp. {this.subtotalPrice()}</Text>
+                  <Text style={{ color: "#8f8f8f", fontSize: 18 }}>
+                    SubTotal:{" "}
+                  </Text>
+                  <Text style={{ fontSize: 18 }}>
+                    Rp. {this.subtotalPrice()}
+                  </Text>
                 </View>
               </View>
             </View>
             <View
               style={{
+                borderRadius: 5,
                 flexDirection: "row",
-                justifyContent: "flex-end",
-                height: 32,
-                paddingRight: 20,
+                height: "100%",
+                width: "100%",
                 alignItems: "center",
+                justifyContent: "flex-start",
+                backgroundColor: "darkred",
               }}
             >
-              <TouchableOpacity
-                style={[
-                  styles.centerElement,
-                  {
-                    backgroundColor: "#0faf9a",
-                    width: 100,
-                    height: 30,
-                    borderRadius: 5,
-                  },
-                ]}
-                onPress={() => console.log("test")}
+              <Button
+                style={{
+                  borderRadius: 5,
+                  height: "100%",
+                  width: "100%",
+                  alignContent: "center",
+                  marginTop: 5,
+                }}
+                contentStyle={{ flexDirection: "row-reverse" }}
+                mode="contained"
+                buttonColor="darkred"
+                labelStyle={{ fontSize: 20 }}
+                onPress={() => this.props.navigation.navigate("Maps")}
               >
-                <Text style={{ color: "#ffffff" }}>Checkout</Text>
-              </TouchableOpacity>
+                Checkout
+              </Button>
             </View>
           </View>
         )}

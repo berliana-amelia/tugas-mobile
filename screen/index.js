@@ -4,14 +4,15 @@ import Maps from "./Maps";
 import SavedLoc from "./SavedLoc";
 import AddMenu from "./AddMenu";
 import Menu from "./Menu";
-import Menus from "./Menus";
 import RiwayatTransaksi from "./RiwayatTransaksi";
 import DetailMenu from "./DetailMenu";
 import OrderPage from "./OrderPage";
 import Profile from "./Profile";
 import CheckOut from "./CheckOut";
+import SaveLocation from "./SaveLocation";
 
 export{
+    SaveLocation,
     CheckOut,
     SavedLoc,
     Maps,
@@ -23,5 +24,4 @@ export{
     DetailMenu,
     OrderPage,
     Profile,
-    Menus
 }

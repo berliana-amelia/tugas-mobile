@@ -15,9 +15,8 @@ export default function Top(props) {
       }}>
       </View>
       <ScrollView >
-      <Text style={styles.textx}>Sekarang Anda Berada di </Text>
+      <Text style={styles.textx}>Pilih Lokasi Pengiriman :  </Text>
       <Text style={styles.textx}>Longitude  : <Text style={styles.textz}>{long}</Text></Text>
-      <Text style={styles.textx}>Latitude     : <Text style={styles.textz}>{lati}</Text></Text>
       <View style={styles.buttoncontainer}>
         <Pressable style={styles.button}
           onPress={props.onPress}
@@ -62,7 +61,7 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     fontWeight: '900',
     letterSpacing: 0.25,
-    color: 'red',
+    color: 'darkred',
     marginTop: 10,
     marginBottom: 3,
     textAlign:'left'
@@ -89,7 +88,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
-    backgroundColor: "red",
+    backgroundColor: "darkred",
     borderRadius:15
   },
 });
