@@ -130,11 +130,12 @@ export class OrderPage extends Component {
   //membuat fungsi untuk menyimpan data ke dalam async storage
   storeSubTotal = async (value) => {
     try {
-      const jsonValue = JSON.stringify(value);
+      const jsonValue = JSON.stringify(this.subtotalPrice());
       await AsyncStorage.setItem("subtotal", jsonValue);
     } catch (e) {
       // saving error
     }
+    this.props.navigation.navigate("Maps");
   };
   render() {
     const { cartItems, cartItemsIsLoading, selectAll } = this.state;
@@ -347,7 +348,7 @@ export class OrderPage extends Component {
                 mode="contained"
                 buttonColor="darkred"
                 labelStyle={{ fontSize: 20 }}
-                onPress={() => this.props.navigation.navigate("Maps")}
+                onPress={() => this.storeSubTotal()}
               >
                 Checkout
               </Button>

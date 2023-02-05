@@ -10,6 +10,7 @@ import OrderPage from "./OrderPage";
 import Profile from "./Profile";
 import CheckOut from "./CheckOut";
 import SaveLocation from "./SaveLocation";
+import Payment from "./Payment";
 
 export{
     SaveLocation,

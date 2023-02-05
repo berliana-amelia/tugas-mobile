@@ -16,6 +16,7 @@ import {
   CheckOut,
   SaveLocation
 } from "./screen";
+import Payment from "./screen/Payment";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -65,8 +66,9 @@ const App = () => {
         <Stack.Screen name="RiwayatTransaksi" component={RiwayatTransaksi} />
         <Stack.Screen name="Detail Menu" component={DetailMenu} />
         <Stack.Screen name="Keranjang" component={OrderPage} options={{ headerShown: false }}/>
-        <Stack.Screen name="Order Detail" component={CheckOut} />
+        <Stack.Screen name="Order Detail" component={CheckOut} options={{ headerShown: false }}/>
         <Stack.Screen name="Simpan Lokasi" component={SaveLocation} />
+        <Stack.Screen name="Payment" component={Payment} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -50,15 +50,21 @@ export default class Maps extends Component {
   //simpan lokasi ke lokal
   storeLocation = async () => {
     try {
+      const Addressx = [];
       const { jalan, nomer, kelurahan, kecamatan, kota, provinsi, kodepos,Email} = this.state;
-      const Address = jalan +"No. " + nomer +", " + kelurahan + ", " + kecamatan + ", " + kota + ", " +provinsi +" " + kodepos;
+      const Address = jalan +" No. " + nomer +", " + kelurahan + ", " + kecamatan + ", " + kota + ", " +provinsi +" " + kodepos;
       console.log(typeof(Address));
-      await AsyncStorage.setItem("location", Address);
-      console.log(Address)
+      Addressx.push(
+        alamat = Address
+      )
+      const value = JSON.stringify(Addressx);
+      await AsyncStorage.setItem("location", value);
+      console.log("coba",Address)
     } catch (e) {
       // saving error
       console.log(e)
     }
+    this.props.navigation.navigate("Order Detail");
   }
   //fungsi untuk mendapatkan lokasi
   _getLocationAsync = async () => {

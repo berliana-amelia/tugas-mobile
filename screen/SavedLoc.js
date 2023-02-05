@@ -54,11 +54,12 @@ export default class SavedLoc extends Component {
     try {
       const value = JSON.stringify(Address);
       await AsyncStorage.setItem("location", value);
-      console.log(Address);
+      console.log("here",Address);
     } catch (e) {
       // saving error
       console.log(e);
     }
+    this.props.navigation.navigate("Order Detail");
   };
 
   render() {
