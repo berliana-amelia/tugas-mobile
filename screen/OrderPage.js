@@ -273,7 +273,7 @@ export class OrderPage extends Component {
               // borderTopWidth: 2,
               borderColor: "#f6f6f6",
               paddingVertical: 5,
-              height: "10%",
+              height: "11%",
             }}
           >
             <View

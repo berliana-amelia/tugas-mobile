@@ -12,11 +12,6 @@ import {
 import React, { Component } from "react";
 import { Appbar, Divider, List, Button, RadioButton } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  MaterialIcons,
-  Ionicons,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
 
 export class CheckOut extends Component {
   constructor(props) {
@@ -33,11 +28,7 @@ export class CheckOut extends Component {
   componentDidMount() {
     this.getData();
   }
-  setValue = (value) => {
-    this.setState({
-      value,
-    });
-  };
+
   getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("storage");
@@ -60,8 +51,6 @@ export class CheckOut extends Component {
       console.log(error);
     }
   };
-
-  saveTransaction = () => {};
 
   render() {
     const Alamat = this.state.Address;

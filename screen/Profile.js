@@ -55,6 +55,7 @@ export class Profile extends Component {
           />
           <List.Item
             title="Riwayat Transaksi"
+            onPress={()=> this.props.navigation.navigate("Riwayat Transaksi")}
             left={() => <List.Icon color="red" icon="history" />}
           />
           {/* </List.Section> */}

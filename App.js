@@ -63,7 +63,7 @@ const App = () => {
         <Stack.Screen name="HomeStack" component={HomeStack} options={{ headerShown: false }}/>
         <Stack.Screen name="Maps" component={Maps} options={{ headerShown: false }}/>
         <Stack.Screen name="Saved Location" component={SavedLoc} />
-        <Stack.Screen name="RiwayatTransaksi" component={RiwayatTransaksi} />
+        <Stack.Screen name="Riwayat Transaksi" component={RiwayatTransaksi} />
         <Stack.Screen name="Detail Menu" component={DetailMenu} />
         <Stack.Screen name="Keranjang" component={OrderPage} options={{ headerShown: false }}/>
         <Stack.Screen name="Order Detail" component={CheckOut} options={{ headerShown: false }}/>

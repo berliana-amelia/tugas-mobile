@@ -11,8 +11,6 @@ import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
 import AnimatedLoader from "react-native-animated-loader";
 import { Appbar } from "react-native-paper";
-import { db } from "../handler/config";
-import { collection, addDoc } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class Maps extends Component {
@@ -54,9 +52,7 @@ export default class Maps extends Component {
       const { jalan, nomer, kelurahan, kecamatan, kota, provinsi, kodepos,Email} = this.state;
       const Address = jalan +" No. " + nomer +", " + kelurahan + ", " + kecamatan + ", " + kota + ", " +provinsi +" " + kodepos;
       console.log(typeof(Address));
-      Addressx.push(
-        alamat = Address
-      )
+      Addressx ={alamat:Address, key:1};
       const value = JSON.stringify(Addressx);
       await AsyncStorage.setItem("location", value);
       console.log("coba",Address)
