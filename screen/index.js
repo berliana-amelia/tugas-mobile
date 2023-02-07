@@ -1,6 +1,5 @@
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
-import Maps from "./Maps";
 import SavedLoc from "./SavedLoc";
 import AddMenu from "./AddMenu";
 import Menu from "./Menu";
@@ -16,7 +15,7 @@ export{
     SaveLocation,
     CheckOut,
     SavedLoc,
-    Maps,
+    Payment,
     SignUp,
     AddMenu,
     Menu,

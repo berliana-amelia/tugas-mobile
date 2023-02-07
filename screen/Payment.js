@@ -32,14 +32,10 @@ export class Payment extends Component {
       value,
     });
   };
-  hideDialog = () => {
-    this.setState({
-      visible: false,
-    });
-  };
   componentDidMount() {
     this.getData();
   }
+  // mendapatkan data transaksi
   getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("storage");
@@ -62,7 +58,7 @@ export class Payment extends Component {
       console.log(error);
     }
   };
-
+  // menyimpan transaksi di firebasee
   saveTransaction = async () => {
     let today = new Date().toUTCString();
     const { cartItems, Email, Address, SubTotal, value } = this.state;

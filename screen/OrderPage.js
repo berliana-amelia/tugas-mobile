@@ -135,7 +135,7 @@ export class OrderPage extends Component {
     } catch (e) {
       // saving error
     }
-    this.props.navigation.navigate("Maps");
+    this.props.navigation.navigate("Saved Location");
   };
   render() {
     const { cartItems, cartItemsIsLoading, selectAll } = this.state;

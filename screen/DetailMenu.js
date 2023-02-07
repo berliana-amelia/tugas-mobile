@@ -16,6 +16,7 @@ export class DetailMenu extends Component {
       data: this.props.route.params.data,
     };
   }
+  // fungsi untuk menyimpan daya ke async keranjang
   storeData = async (value) => {
     try {
       console.log("StoreData Value :", value);
@@ -26,6 +27,7 @@ export class DetailMenu extends Component {
       console.log(e);
     }
   };
+  // fungsi untuk handler ditambahkan ke dalam keranjang
   AddCart = async (DataItem) => {
     console.log("Here : ", DataItem);
     const jsonValue = await AsyncStorage.getItem("storage");

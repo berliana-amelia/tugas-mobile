@@ -68,20 +68,7 @@ export default class SaveLocation extends Component {
         console.log(error);
       });
   };
-
-  // storeLocation = async () => {
-  //   try {
-  //     const { jalan, nomer, kelurahan, kecamatan, kota, provinsi, kodepos,Email} = this.state;
-  //     const Address = jalan +"No. " + nomer +", " + kelurahan + ", " + kecamatan + ", " + kota + ", " +provinsi +" " + kodepos;
-  //     console.log(typeof(Address));
-  //     await AsyncStorage.setItem("location", Address);
-  //     console.log(Address)
-  //   } catch (e) {
-  //     // saving error
-  //     console.log(e)
-  //   }
-  // }
-  //mendapatkan userid 
+  //mendapatkan data user
   getData = async () => {
     try {
       const user = await AsyncStorage.getItem("user");

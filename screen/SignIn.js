@@ -23,6 +23,7 @@ export class SignIn extends Component {
       secureTextEntry: true,
     };
   }
+  // fungsi untuk menyimpan email sebagai user id ke dalam async storage
   storeUser = async (value) => {
     try {
       console.log("StoreData Value :", value);
@@ -33,6 +34,7 @@ export class SignIn extends Component {
       console.log(e);
     }
   }
+  // Fungssi untuk mengek data yang dimasukkan dengan yang ada di firebase
   SignInFunc = () => {
     //membuat variable local dan assign ke state
     var Email = this.state.email;

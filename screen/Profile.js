@@ -12,9 +12,11 @@ export class Profile extends Component {
       Nama : ""
     };
   }
+  // fungsi ang di exexute pertama kali 
   componentDidMount() {
     this.getData();
   }
+  // fungsi untuk mendapatkan data user yang sebelumnya disimpan pada saat signin di async storage
   getData = async () => {
     try {
       const user = await AsyncStorage.getItem("user");
@@ -32,10 +34,13 @@ export class Profile extends Component {
     const Email = this.state.Email;
     return (
       <View style={styles.container}>
+        {/* membuat icon avatar */}
         <Ionicons size={150} name="person-circle" color={"grey"} />
+        {/* menampilkan nama */}
         <Text style={{ fontSize: 25, fontWeight: "bold" }}>
           {Nama}
         </Text>
+        {/* menampilkan email */}
         <Text style={{ fontSize: 16 }}>{Email}</Text>
         <View
           style={{ alignContent: "flex-start", width: "90%", marginTop: 20 }}
@@ -46,6 +51,7 @@ export class Profile extends Component {
             title="Detail Akun"
             left={() => <List.Icon color="red" icon="account" />}
           />
+          {/* list untuk ke halaman Alamat Tersimpa */}
           <List.Item
             title="Alamat Tersimpan"
             onPress={() => this.props.navigation.navigate("Saved Location")}
@@ -53,6 +59,7 @@ export class Profile extends Component {
               <List.Icon color="red" icon="map-marker-radius-outline" />
             )}
           />
+          {/* List untuk ke halaman riiwayat transaksi */}
           <List.Item
             title="Riwayat Transaksi"
             onPress={()=> this.props.navigation.navigate("Riwayat Transaksi")}
@@ -60,6 +67,7 @@ export class Profile extends Component {
           />
           {/* </List.Section> */}
         </View>
+        {/* Button Keluar */}
         <Button
           style={{
             width: "90%",

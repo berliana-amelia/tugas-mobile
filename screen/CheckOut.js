@@ -28,7 +28,7 @@ export class CheckOut extends Component {
   componentDidMount() {
     this.getData();
   }
-
+  // mendapatkan data lokasi dan item dalam keranjang serta sub total, dan email  user dari asnc storge
   getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("storage");

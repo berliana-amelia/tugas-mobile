@@ -15,6 +15,7 @@ export class RiwayatTransaksi extends Component {
   componentDidMount() {
     this.getData();
   }
+  // mendapat data transaksi user dari firebase
   getData = async () => {
     const Data = [];
     const Item =[];
@@ -57,6 +58,7 @@ export class RiwayatTransaksi extends Component {
     const Item = this.state;
     return (
       <View>
+        {/* membuat list untuk riwayyat transaksi */}
         <FlatList style={{ height: "100%" }}
               data={this.state.Data}
               numColumn={1}

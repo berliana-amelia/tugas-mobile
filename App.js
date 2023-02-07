@@ -1,10 +1,10 @@
+// import dependencies
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import {
-  Maps,
   SignIn,
   SignUp,
   SavedLoc,
@@ -18,12 +18,13 @@ import {
 } from "./screen";
 import Payment from "./screen/Payment";
 
+// membuat variable untuk Stack Navigator dan Tab Navigator
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const HomeStack = (props) => {
   return (
-    //membuat bottom navigator home dan routing home 
+    //membuat bottom navigator profile dan menu
     <Tab.Navigator
     initialRouteName={"Menu"}
     screenOptions = {({route}) => ({
@@ -55,13 +56,13 @@ const HomeStack = (props) => {
 };
 
 const App = () => {
+  // membuat stackscreen
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="SignIn">
         <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }}/>
         <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }}/>
         <Stack.Screen name="HomeStack" component={HomeStack} options={{ headerShown: false }}/>
-        <Stack.Screen name="Maps" component={Maps} options={{ headerShown: false }}/>
         <Stack.Screen name="Saved Location" component={SavedLoc} />
         <Stack.Screen name="Riwayat Transaksi" component={RiwayatTransaksi} />
         <Stack.Screen name="Detail Menu" component={DetailMenu} />

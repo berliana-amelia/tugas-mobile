@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "coba-deh",
+    "name": "FoodPedia",
     "slug": "coba-deh",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,12 +22,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.berlinzain.cobadeh"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ab2c6286-1918-490a-8a09-cd1dcf6d2670"
+      }
     }
   }
 }
